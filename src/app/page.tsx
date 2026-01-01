@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { products } from '@/data/products';
 import ProductCard from '@/components/ProductCard';
@@ -11,14 +12,22 @@ export default function Home() {
   return (
     <>
       <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>Explore the Unknown</h1>
+        <div className={styles.heroBackground}>
+          <Image
+            src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&q=80&w=2000"
+            alt="Hero Background"
+            fill
+            priority
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
+        <div className={`container ${styles.heroContent}`}>
+          <h1 className={styles.heroTitle}>Conquer The Wild</h1>
           <p className={styles.heroSubtitle}>
-            Equip yourself with the best gear for your next adventure.
-            From mountain peaks to deep forests, we have you covered.
+            Premium gear for the modern explorer. Designed for durability, engineered for adventure.
           </p>
           <Link href="/products" className={styles.ctaButton}>
-            Shop Now
+            Start Your Journey <ArrowRight size={24} />
           </Link>
         </div>
       </section>

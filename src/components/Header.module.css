@@ -1,11 +1,24 @@
 .header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 100;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border-color);
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.85);
+    /* Slightly less opaque for better glass effect */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.6);
     padding: var(--spacing-md) 0;
+    transition: all 0.3s ease;
+}
+
+/* Dark mode adjustment if needed */
+@media (prefers-color-scheme: dark) {
+    .header {
+        background-color: rgba(11, 15, 25, 0.85);
+        border-bottom: 1px solid rgba(31, 41, 55, 0.6);
+    }
 }
 
 .navContainer {
@@ -15,12 +28,19 @@
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 1.75rem;
+    font-weight: 800;
     color: var(--primary-color);
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
+    letter-spacing: -0.03em;
+}
+
+.logo span {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .navLinks {
@@ -30,41 +50,67 @@
 }
 
 .link {
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-primary);
+    font-size: 1rem;
     transition: color 0.2s ease;
+    position: relative;
 }
 
 .link:hover {
-    color: var(--primary-color);
+    color: var(--accent-color);
+}
+
+.link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.link:hover::after {
+    width: 100%;
 }
 
 .cartButton {
     position: relative;
-    background: transparent;
+    background: white;
+    border: 1px solid var(--border-color);
     color: var(--text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-xs);
+    padding: 0.6rem;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
 }
 
 .cartButton:hover {
-    color: var(--primary-color);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .badge {
     position: absolute;
-    top: -4px;
-    right: -4px;
+    top: -6px;
+    right: -6px;
     background-color: var(--accent-color);
     color: white;
-    font-size: 0.75rem;
-    font-weight: bold;
-    height: 18px;
-    width: 18px;
-    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 800;
+    height: 20px;
+    min-width: 20px;
+    padding: 0 4px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 2px solid white;
 }
