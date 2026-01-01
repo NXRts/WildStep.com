@@ -41,14 +41,16 @@ export default function ProductCard({ product }: ProductCardProps) {
                         {product.name}
                     </Link>
                 </h3>
-                <div className={styles.price}>{formatPrice(product.price)}</div>
-                <button
-                    className={styles.button}
-                    onClick={() => addToCart(product)}
-                >
-                    <ShoppingCart size={18} />
-                    Add to Cart
-                </button>
+                <div className={styles.footer}>
+                    <div className={styles.price}>{formatPrice(product.price)}</div>
+                    <button
+                        className={styles.button}
+                        onClick={() => addToCart(product)}
+                        title="Add to Cart"
+                    >
+                        <ShoppingCart size={18} />
+                    </button>
+                </div>
             </div>
         </div>
     );
