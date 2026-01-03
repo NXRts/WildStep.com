@@ -13,7 +13,7 @@
     font-size: 3.5rem;
     font-weight: 800;
     margin-bottom: var(--spacing-md);
-    color: var(--primary-color);
+    color: var(--text-primary);
 }
 
 .subtitle {
@@ -40,7 +40,7 @@
 .content h2 {
     font-size: 2rem;
     margin-bottom: var(--spacing-md);
-    color: var(--primary-color);
+    color: var(--text-primary);
 }
 
 .content p {
