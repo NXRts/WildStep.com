@@ -5,10 +5,12 @@ import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import styles from './page.module.css';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function CartPage() {
     const { items, removeFromCart, totalPrice, clearCart } = useCart();
     const [mounted, setMounted] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         setMounted(true);
@@ -92,8 +94,7 @@ export default function CartPage() {
                 <button
                     className={styles.checkoutButton}
                     onClick={() => {
-                        alert('Checkout functionality coming soon!');
-                        clearCart();
+                        router.push('/checkout');
                     }}
                 >
                     Proceed to Checkout

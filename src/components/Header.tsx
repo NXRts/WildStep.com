@@ -18,6 +18,7 @@ export default function Header() {
                 <nav className={styles.navLinks}>
                     <Link href="/" className={styles.link}>Home</Link>
                     <Link href="/products" className={styles.link}>Shop</Link>
+                    <Link href="/about" className={styles.link}>About</Link>
                     <Link href="/cart" className={styles.cartButton} aria-label="Cart">
                         <ShoppingCart size={24} />
                         {totalItems > 0 && <span className={styles.badge}>{totalItems}</span>}
