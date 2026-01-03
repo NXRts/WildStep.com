@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -9,9 +10,9 @@ import { useCart } from '@/context/CartContext';
 import styles from './page.module.css';
 
 interface ProductPageProps {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
 // Generate static params causing issues with 'use client'
@@ -19,8 +20,9 @@ interface ProductPageProps {
 // For simplicity in this 'use client' file, we'll remove it as it's not strictly needed for dev mode.
 
 export default function ProductDetailPage({ params }: ProductPageProps) {
+    const { id } = use(params);
     const { addToCart } = useCart();
-    const product = products.find((p) => p.id === params.id);
+    const product = products.find((p) => p.id === id);
 
     if (!product) {
         notFound();
