@@ -6,9 +6,10 @@ import { useCart } from '@/context/CartContext';
 import styles from './page.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Minus, Plus } from 'lucide-react';
 
 export default function CartPage() {
-    const { items, removeFromCart, totalPrice, clearCart } = useCart();
+    const { items, removeFromCart, updateQuantity, totalPrice, clearCart } = useCart();
     const [mounted, setMounted] = useState(false);
     const router = useRouter();
 
@@ -60,12 +61,27 @@ export default function CartPage() {
                                 {item.name}
                             </Link>
                             <div className={styles.itemMeta}>
+                            <div className={styles.itemMeta}>
                                 <div className={styles.itemPrice}>
-                                    {formatPrice(item.price)} x {item.quantity}
+                                    {formatPrice(item.price)}
                                 </div>
-                                <div className={styles.quantity}>
-                                    Subtotal: {formatPrice(item.price * item.quantity)}
+                                <div className={styles.quantityControl}>
+                                    <button 
+                                        className={styles.qtyBtn} 
+                                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                        disabled={item.quantity <= 1}
+                                    >
+                                        <Minus size={16} />
+                                    </button>
+                                    <span className={styles.qtyVal}>{item.quantity}</span>
+                                    <button 
+                                        className={styles.qtyBtn}
+                                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                    >
+                                        <Plus size={16} />
+                                    </button>
                                 </div>
+                            </div>
                             </div>
                         </div>
                         <button
@@ -79,6 +95,10 @@ export default function CartPage() {
             </div>
 
             <div className={styles.summary}>
+                <div className={styles.promoCode}>
+                    <input type="text" placeholder="Promo Code" className={styles.promoInput} />
+                    <button className={styles.promoBtn}>Apply</button>
+                </div>
                 <div className={styles.summaryRow}>
                     <span>Subtotal</span>
                     <span>{formatPrice(totalPrice)}</span>
