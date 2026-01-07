@@ -6,6 +6,8 @@ import { ShoppingCart } from 'lucide-react';
 import { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import styles from './ProductCard.module.css';
+import { useState } from 'react';
+import AddToCartModal from './AddToCartModal';
 
 interface ProductCardProps {
     product: Product;
@@ -13,6 +15,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
     const { addToCart } = useCart();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Simple formatter for IDR
     const formatPrice = (price: number) => {
@@ -45,11 +48,20 @@ export default function ProductCard({ product }: ProductCardProps) {
                     <div className={styles.price}>{formatPrice(product.price)}</div>
                     <button
                         className={styles.button}
-                        onClick={() => addToCart(product)}
+                        onClick={() => setIsModalOpen(true)}
                         title="Add to Cart"
                     >
                         <ShoppingCart size={18} />
                     </button>
+                    <AddToCartModal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        onConfirm={(quantity) => {
+                            addToCart(product, quantity);
+                            setIsModalOpen(false);
+                        }}
+                        product={product}
+                    />
                 </div>
             </div>
         </div>

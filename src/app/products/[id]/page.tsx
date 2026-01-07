@@ -8,6 +8,8 @@ import { ArrowLeft, ShoppingCart, Star } from 'lucide-react';
 import { products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import styles from './page.module.css';
+import { useState } from 'react';
+import AddToCartModal from '@/components/AddToCartModal';
 
 interface ProductPageProps {
     params: Promise<{
@@ -23,6 +25,7 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
     const { id } = use(params);
     const { addToCart } = useCart();
     const product = products.find((p) => p.id === id);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     if (!product) {
         notFound();
@@ -68,7 +71,7 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
                     <div className={styles.actions}>
                         <button
                             className={styles.addToCart}
-                            onClick={() => addToCart(product)}
+                            onClick={() => setIsModalOpen(true)}
                         >
                             <ShoppingCart size={24} />
                             Add to Cart
@@ -76,6 +79,18 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
                     </div>
                 </div>
             </div>
+            
+            {product && (
+                <AddToCartModal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    onConfirm={(quantity) => {
+                        addToCart(product, quantity);
+                        setIsModalOpen(false);
+                    }}
+                    product={product}
+                />
+            )}
         </div>
     );
 }
